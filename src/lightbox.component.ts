@@ -8,6 +8,7 @@ import {
   Renderer2,
   SecurityContext,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -77,7 +78,8 @@ export class LightboxComponent implements OnInit, AfterViewInit, OnDestroy, OnIn
     private _lightboxEvent: LightboxEvent,
     public _lightboxElem: ElementRef,
     private _lightboxWindowRef: LightboxWindowRef,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private _cdRef: ChangeDetectorRef
   ) {
     // initialize data
     this.options = this.options || {};
@@ -338,6 +340,7 @@ export class LightboxComponent implements OnInit, AfterViewInit, OnDestroy, OnIn
     if (!this.options.disableKeyboardNav) {
       this._enableKeyboardNav();
     }
+    this._cdRef.markForCheck();
   }
 
   private _prepareComponent(): void {
